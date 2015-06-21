@@ -1,5 +1,5 @@
 library(shinydashboard) ; library(ISLR) 
-require(rCharts)
+require(rCharts); library(dplyr)
 data(Auto)
 auto <- tbl_df(Auto)
 auto <- auto %>% filter(cylinders>3) %>%
@@ -17,10 +17,10 @@ homebody <- "Today we are going to be looking at some visual and numerical analy
 various motor vehicles made from 1970-1982.  The data set we are using can be found for free in the R package
 ISLR. There are 392 different observations across the 12 years. Check out the chart below to explore the general
 relationship between Weight and MPG of a vehicle. The cylinders found in the engine are color coded. If you click
-the circle next to 'Magnify' you will be able to zoom inon the chart by hovering your mouse over the area of interest
+the circle next to 'Magnify' you will be able to zoom in on the chart by hovering your mouse over the area of interest
 . Clearly there is generally a negative relationship betwen weigh and MPG. We can also see that overall, the less cylinders 
 car has, the lighter and more fuel efficient it is. By zooming in on the border areas between differeny cylinders, we can see that
-there is some overlap. Interesting! Check out the other tab for reactive graphics!"
+there is some overlap. Interesting! Check out the other tabs for truly reactive graphics!"
 
 #########################################################
 
@@ -28,8 +28,7 @@ sidebar <- dashboardSidebar(
      sidebarMenu(
           menuItem("Home", tabName = "Home", icon = icon("home")),
           menuItem("Weight", tabName = "Weight", icon = icon("bar-chart")),
-          menuItem("Custom", tabName = "Custom", icon = icon("area-chart")),
-          menuItem("Documentation", tabName = "Documentation", icon = icon("book"))
+          menuItem("Custom", tabName = "Custom", icon = icon("area-chart"))
      )
 )
 
@@ -46,6 +45,11 @@ body <- dashboardBody(
                   ),
           
           tabItem(tabName = "Weight",
+                  h2("Plot of Weight vs MPG, Engine Type Color Coded"),
+                  p("By sliding the Year slider bar below around and clicking Submit, you are able to change what year of vehicles
+                    you are seeing plotted. I have added trendlines for each type of engine. As we can see, the three engines appear
+                    to have relatively varied profiles in fuel efficiency. It is apparent that there was a general increase in 
+                    fuel efficiency over this timeframe."),
                   box(
                        title = "Year", status = "primary", solidHeader = TRUE,
                        sliderInput("Year", label = "Year", min = 70, max = 82, step = 1, value = 70),
@@ -56,7 +60,10 @@ body <- dashboardBody(
           
           tabItem(tabName = "Custom",
                   h2("Fully-Customizable Graphing"),
-                  p("Pick from any variables for the X and Y axis as well as select your own color coded variable."),
+                  p("Pick from any variables for the X and Y axis as well as select your own color coded factor variable. Be warned
+                    that not all the possible plots below are necessarily meaningful. I hope you are enjoying using this customizable
+                    data product. The interactivity of this makes Shiny an incredible tool for data scientists. There are limitless
+                    applications of a quickly deployed interactive dashboard! Enjoy!"),
                   box(
                          selectInput("X", label = "X-Axis", 
                                   choices = names(auto), selected = "Weight"),
@@ -68,9 +75,8 @@ body <- dashboardBody(
                          submitButton("Submit Changes")),
                   br(), br(), br(),
                   plotOutput('linechart')
-                  ),
+                  )
           
-          tabItem(tabName = "Documentation")
           ))
 
 ui <- dashboardPage(header,sidebar,body)

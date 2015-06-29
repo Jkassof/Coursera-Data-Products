@@ -1,4 +1,3 @@
 # Coursera-Data-Products
 Coursera Johns Hopkins Specialization Data Products Class
-server and ui files for first Shiny Dashboard
-What a useful tool
+Checkout the deployed web app here....http://jkassof.shinyapps.io/Dashboard

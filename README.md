@@ -1,3 +1,5 @@
-# Coursera-Data-Products
-Coursera Johns Hopkins Specialization Data Products Class </br><br>
-Checkout my deployed Shiny web app here....https://jkassof.shinyapps.io/Coursera-Data-Products
+## Gas Mileage Dashboard
+
+Live app here: https://jkassof.shinyapps.io/Coursera-Data-Products
+
+This web app was built using R's `shinydashboard` package. I also used `rcharts` to produce the d3 scatterplot.
